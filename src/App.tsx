@@ -10,8 +10,11 @@ import Home from "./pages/Home";
 import BusRoute from "./pages/BusRoute";
 import BusSearch from "./pages/BusSearch";
 import Booking from "./pages/Booking";
-import Payment from "./pages/Payment";
 import Ticket from "./pages/Ticket";
+import BusDetails from "./pages/BusDetails";
+import BookTicket from "./pages/BookTicket";
+import Payment from './pages/Payment';
+
 
 const queryClient = new QueryClient();
 
@@ -28,9 +31,12 @@ const App = () => (
           <Route path="/bus-route/:busNumber" element={<BusRoute />} />
           <Route path="/bus-search" element={<BusSearch />} />
           <Route path="/booking" element={<Booking />} />
-          <Route path="/payment" element={<Payment />} />
           <Route path="/ticket" element={<Ticket />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/available-buses" element={<BusDetails />} />
+          <Route path="/book-ticket" element={<BookTicket />} />
+          <Route path="/payment" element={<Payment />} />
+          
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

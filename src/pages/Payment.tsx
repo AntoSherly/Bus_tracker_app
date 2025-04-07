@@ -7,48 +7,49 @@ const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const busDetails = location.state || {};  // Fallback if no state is passed
+
+  const busDetails = location.state || {};
 
   const handlePayment = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Simulate successful payment
     toast({
-      title: "Payment Successful",
-      description: "Your ticket has been booked successfully!"
+      title: "✅ Payment Successful",
+      description: "Your ticket has been booked successfully!",
     });
 
-    // Pass the bus details to the ticket page
     const ticketDetails = {
-      ...busDetails, // include the bus number, start, and destination
-      ticketId: "1234567890" // Simulated ticket ID
+      ...busDetails,
+      ticketId: "TN" + Math.floor(100000 + Math.random() * 900000), // simulated ID
     };
 
     navigate("/ticket", { state: ticketDetails });
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Payment</h1>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center text-blue-700 mb-6">💳 Payment</h2>
 
-      <form onSubmit={handlePayment} className="space-y-4">
-        <div className="bg-card p-4 rounded-lg shadow mb-6">
-          <h2 className="font-semibold mb-2">Trip Details</h2>
-          <p>Bus: {busDetails?.number || 'N/A'}</p> {/* Fallback if busDetails.number is not provided */}
-          <p>From: {busDetails?.startStop || 'Unknown'}</p> {/* Fallback if busDetails.startStop is not provided */}
-          <p>To: {busDetails?.destination || 'Unknown'}</p> {/* Fallback if busDetails.destination is not provided */}
-          <p className="mt-2 font-semibold">Amount: ₹50</p>
+        <div className="bg-blue-50 p-4 rounded-lg shadow-sm mb-6 text-sm space-y-2">
+          <p><span className="font-semibold">🚌 Bus:</span> {busDetails?.routeId || 'N/A'}</p>
+          <p><span className="font-semibold">🚍 Vehicle No:</span> {busDetails?.vehicleNumber || 'N/A'}</p>
+          <p><span className="font-semibold">📍 From:</span> {busDetails?.startStop || 'Unknown'}</p>
+          <p><span className="font-semibold">📍 To:</span> {busDetails?.destination || 'Unknown'}</p>
+          <p className="pt-2 font-semibold text-green-700">💰 Fare: ₹50</p>
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium">UPI ID</label>
-          <Input placeholder="Enter your UPI ID" required />
-        </div>
+        <form onSubmit={handlePayment} className="space-y-4">
+          <div className="space-y-1">
+            <label htmlFor="upi" className="text-sm font-medium text-gray-700">UPI ID</label>
+            <Input id="upi" placeholder="example@upi" required />
+          </div>
 
-        <Button type="submit" className="w-full">
-          Pay ₹50
-        </Button>
-      </form>
+          <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white">
+            Pay ₹50
+          </Button>
+        </form>
+      </div>
     </div>
   );
 };
